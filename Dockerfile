@@ -15,6 +15,7 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
       unzip drop.zip; \
       cd drop; \
       mv azcopy_linux_arm64 /usr/bin/azcopy; \
+      rm -rf drop.zip; \
     else \
       apt-get install -y azcopy; \
     fi
