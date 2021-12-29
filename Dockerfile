@@ -5,23 +5,16 @@ RUN apt-get update && \
       curl \
       software-properties-common
 
-ENV GOROOT="/usr/local/go"
-ENV GOPATH="$HOME/go"
-ENV PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
-
 #install azcopy
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
     apt-add-repository https://packages.microsoft.com/ubuntu/16.04/prod && \
     apt-get update && \
     if [ `uname -m` = "aarch64" ] ; then \
-      apt-get install -y git wget; \
-      wget https://dl.google.com/go/go1.14.linux-arm64.tar.gz; \
-      tar -xvf go1.14.linux-arm64.tar.gz; \
-      mv go /usr/local; \
-      git clone https://github.com/Azure/azure-storage-azcopy; \
-      cd azure-storage-azcopy; \
-      GOARCH=arm64 GOOS=linux go build -o /usr/bin/azcopy; \
-      rm -rf go1.14.linux-arm64.tar.gz azure-storage-azcopy; \
+      apt-get install -y wget; \
+      wget https://azcopyvnextrelease.blob.core.windows.net/release20211027/drop.zip; \
+      unzip drop.zip; \
+      cd drop; \
+      mv azcopy_linux_arm64 /usr/bin/azcopy; \
     else \
       apt-get install -y azcopy; \
     fi
