@@ -10,7 +10,7 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
     apt-add-repository https://packages.microsoft.com/ubuntu/16.04/prod && \
     apt-get update && \
     if [ `uname -m` = "aarch64" ] ; then \
-      apt-get install -y wget; \
+      apt-get install -y wget unzip; \
       wget https://azcopyvnextrelease.blob.core.windows.net/release20211027/drop.zip; \
       unzip drop.zip; \
       cd drop; \
